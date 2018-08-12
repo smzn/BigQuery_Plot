@@ -50,6 +50,28 @@ public class BigQuery_Plot_lib {
 		}
 		return response;
 	}
+
+	//全てのレコードを対象として、order by indexで並べ替えをして取得
+	public TableResult getSelectAll() {
+		TableResult response = null;
+		StringBuilder buff = new StringBuilder();
+		buff.append("select * from mznfe."+ tableName);
+		buff.append(" order by index");
+		String query = buff.toString();
+		System.out.println(query);
+		QueryJobConfiguration queryConfig = QueryJobConfiguration.of(query);
+	    try {
+			response = bigQuery.query(queryConfig);
+		} catch (JobException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return response;
+	}
+
 	
 	//複数種類のデータを一度に取り込む場合
 	public double[][] getCSV2(int row, int column) {

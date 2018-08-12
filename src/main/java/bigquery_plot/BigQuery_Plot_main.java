@@ -13,14 +13,15 @@ public class BigQuery_Plot_main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		int rownumber = 10;
-		int column = 50;
+		int rownumber = 2048;
+		int column = 2048;
 		String tableName = "Fe_OFF_1_99";
 		BigQuery_Plot_lib blib = new BigQuery_Plot_lib("/Users/mizuno/Downloads/closedqueue-929a267e03b8.json", tableName);
 		double plotdata[][] = new double[rownumber][column];
 		
 		
-		//BigQueryからSQLで取り込み
+		//BigQueryからSQLで取り込み(1行ずつ、費用がかかるのでやってはいけない）
+		/*
 		for(int i = 0; i < rownumber; i++) {
 			TableResult response = blib.getSelect(i+1);
 			for (FieldValueList row : response.iterateAll()) {
@@ -30,6 +31,20 @@ public class BigQuery_Plot_main {
     				}	
 			}
 		}
+		*/
+		
+		//BigQueryを１度だけ発行。indexの順番に注意する(order by index)
+		TableResult response = blib.getSelectAll();
+		int i = 0;
+		for (FieldValueList row : response.iterateAll()) {
+    			for(int j = 0; j < column; j++) {
+    				//System.out.println("("+i+","+(j+1)+")sum"+j+": "+row.get("sum"+j).getValue());
+    				plotdata[i][j] = row.get("sum"+j).getDoubleValue();
+    			}
+    			i++;
+		}
+		
+		
 		
 		//BigQueryで生成したCSVから取り込み(CSVファイルを並べ替えしておく) 
 		//BigQueryからCSVに落とせなくて諦めた
