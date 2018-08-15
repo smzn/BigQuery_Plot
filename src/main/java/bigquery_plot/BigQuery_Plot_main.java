@@ -15,7 +15,7 @@ public class BigQuery_Plot_main {
 
 		int rownumber = 2048;
 		int column = 2048;
-		String tableName = "Fe_OFF_200_299";
+		String tableName = "Fe_ON_200_299";
 		BigQuery_Plot_lib blib = new BigQuery_Plot_lib("/Users/mizuno/Downloads/closedqueue-929a267e03b8.json", tableName);
 		double plotdata[][] = new double[rownumber][column];
 		
@@ -57,8 +57,9 @@ public class BigQuery_Plot_main {
 		bmat.getImagesc();
 		
 		//差分データ描画
-		double diff[][] = blib.getCSVDiff("csv/Fe_OFF_1_99.csv", "csv/Fe_ON_1_99.csv", rownumber, column);
-		BigQuery_Plot_Matlab bmat1 = new BigQuery_Plot_Matlab(diff, "Fe_1_99");
+		double diff[][] = blib.getCSVDiff("csv/Fe_ON_100_199.csv", "csv/Fe_OFF_100_199.csv", rownumber, column);
+		//System.out.println("PlotData" +Arrays.deepToString(diff));
+		BigQuery_Plot_Matlab bmat1 = new BigQuery_Plot_Matlab(diff, "Fe_100_299");
 		bmat1.getImagesc();
 		
 	}

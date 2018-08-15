@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
 
 import com.google.auth.oauth2.ServiceAccountCredentials;
 import com.google.cloud.bigquery.BigQuery;
@@ -102,7 +103,7 @@ public class BigQuery_Plot_lib {
 		return csvdata;
 	}
 	
-	public double[][] getCSV2(int row, int column, String filename) {
+	public double[][] getCSV2(int row, int column, String fileName) {
 		//CSVから取り込み
 		double csvdata[][] = new double[row][column];
 		try {
@@ -138,6 +139,7 @@ public class BigQuery_Plot_lib {
 		
 		csvdata1 = this.getCSV2(row, column, filename1);
 		csvdata2 = this.getCSV2(row, column, filename2);
+		//System.out.println("PlotData" +Arrays.deepToString(csvdata1));
 		
 		for(int i = 0; i < row; i++) {
 			for(int j = 0; j < column; j++) {
