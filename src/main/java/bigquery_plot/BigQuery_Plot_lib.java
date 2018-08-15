@@ -102,6 +102,52 @@ public class BigQuery_Plot_lib {
 		return csvdata;
 	}
 	
+	public double[][] getCSV2(int row, int column, String filename) {
+		//CSVから取り込み
+		double csvdata[][] = new double[row][column];
+		try {
+			File f = new File(fileName);
+			BufferedReader br = new BufferedReader(new FileReader(f));
+					 
+			String[][] data = new String[row][column]; 
+			String line = br.readLine();
+			for (int i = 0; line != null; i++) {
+				data[i] = line.split(",", 0);
+				line = br.readLine();
+			}
+			br.close();
+			
+			// CSVから読み込んだ配列の中身を処理
+			for(int i = 0; i < data.length; i++) {
+				for(int j = 0; j < data[0].length; j++) {
+					csvdata[i][j] = Double.parseDouble(data[i][j]);
+				}
+			} 
+		} catch (IOException e) {
+				System.out.println(e);
+		}
+			//CSVから取り込みここまで	
+		return csvdata;
+	}
+	
+	//CSVファイルを2つ取り込んで差分をとる
+	public double[][] getCSVDiff(String filename1, String filename2, int row, int column){
+		double diff[][] = new double[row][column];
+		double csvdata1[][] = new double[row][column];
+		double csvdata2[][] = new double[row][column];
+		
+		csvdata1 = this.getCSV2(row, column, filename1);
+		csvdata2 = this.getCSV2(row, column, filename2);
+		
+		for(int i = 0; i < row; i++) {
+			for(int j = 0; j < column; j++) {
+				diff[i][j] = csvdata1[i][j] - csvdata2[i][j];
+			}
+		}
+		
+		return diff;
+	}
+	
 	
 	//jsonファイル認証関数
 	public BigQuery getClientWithJsonKey(String key) throws IOException {
