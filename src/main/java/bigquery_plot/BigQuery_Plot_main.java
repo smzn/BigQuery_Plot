@@ -57,9 +57,9 @@ public class BigQuery_Plot_main {
 		bmat.getImagesc();
 		
 		//差分データ描画
-		double diff[][] = blib.getCSVDiff("csv/Fe_ON_100_199.csv", "csv/Fe_OFF_100_199.csv", rownumber, column);
+		double diff[][] = blib.getCSVDiff("csv/Fe_ON_200_299.csv", "csv/Fe_OFF_200_299.csv", rownumber, column);
 		//System.out.println("PlotData" +Arrays.deepToString(diff));
-		BigQuery_Plot_Matlab bmat1 = new BigQuery_Plot_Matlab(diff, "Fe_100_299");
+		BigQuery_Plot_Matlab bmat1 = new BigQuery_Plot_Matlab(diff, "Fe_200_299");
 		bmat1.getImagesc();
 		
 	}
