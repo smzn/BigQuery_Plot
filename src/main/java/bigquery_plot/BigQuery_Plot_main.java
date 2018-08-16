@@ -62,6 +62,9 @@ public class BigQuery_Plot_main {
 		BigQuery_Plot_Matlab bmat1 = new BigQuery_Plot_Matlab(diff, "Fe_200_299");
 		bmat1.getImagesc();
 		
+		//差分データcsv出力
+		blib.exportCsv(diff, "Fe_200_299");
+		
 	}
 
 }

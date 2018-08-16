@@ -1,10 +1,13 @@
 package bigquery_plot;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Arrays;
 
 import com.google.auth.oauth2.ServiceAccountCredentials;
@@ -143,13 +146,40 @@ public class BigQuery_Plot_lib {
 		
 		for(int i = 0; i < row; i++) {
 			for(int j = 0; j < column; j++) {
-				diff[i][j] = csvdata1[i][j] - csvdata2[i][j];
+				diff[i][j] = csvdata2[i][j] - csvdata1[i][j];
 			}
 		}
 		
 		return diff;
 	}
 	
+	public void exportCsv(double[][] csvdata, String fileName){
+	     
+        try {
+ 
+            // 出力ファイルの作成
+            FileWriter f = new FileWriter("csv/"+fileName+".csv", false);
+            PrintWriter p = new PrintWriter(new BufferedWriter(f));
+  
+            // 内容をセットする
+            for(int i = 0; i < csvdata.length; i++){
+            		for(int j = 0; j < csvdata[0].length; j++) {
+            			p.print(csvdata[i][j]);
+            			p.print(",");
+            		}
+            		p.println();    // 改行
+            }
+ 
+            // ファイルに書き出し閉じる
+            p.close();
+ 
+            System.out.println(fileName+":ファイル出力完了！");
+ 
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+         
+    }
 	
 	//jsonファイル認証関数
 	public BigQuery getClientWithJsonKey(String key) throws IOException {
